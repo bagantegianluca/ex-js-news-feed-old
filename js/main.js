@@ -62,7 +62,7 @@ function postGenerator(post) {
         <div class="section-left">
             <h2>${post.title}</h2>
             <h5>${post.author}</h5>
-            <h6>in data ${post.published}</h6>
+            <h6>in data ${post.published.substring(8, 10)}/${post.published.substring(5, 7)}/${post.published.substring(0, 4)}</h6>
         </div>
         <i class="fa-regular fa-bookmark"></i>
     </div>
