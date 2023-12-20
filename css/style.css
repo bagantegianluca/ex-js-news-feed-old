@@ -10,9 +10,9 @@
     --primary: #023047;
     --tag-geo: #008001;
     --tag-tech: #000080;
-    --tag-kitchen: #800080;
-    --tag-trip: #f3a360;
-    --tag-art: #ffd601;
+    --tag-cucina: #800080;
+    --tag-viaggi: #f3a360;
+    --tag-arte: #ffd601;
 }
 
 body {
@@ -27,14 +27,18 @@ body {
     background: var(--tag-tech);
 }
 
-.tag-kitchen {
-    background: var(--tag-kitchen);
+.tag-cucina {
+    background: var(--tag-cucina);
 }
 
-.tag-trip {
-    background: var(--tag-art);
+.tag-viaggi {
+    background: var(--tag-viaggi);
 }
 
-.tag-art {
-    background: var(--tag-art);
+.tag-arte {
+    background: var(--tag-arte);
+}
+
+.tag-prova {
+    background: red;
 }

@@ -38,8 +38,6 @@ const posts = [
     }
 ];
 
-console.log(posts);
-
 // Select the main element
 const mainEl = document.querySelector('main');
 
@@ -51,6 +49,11 @@ posts.forEach(post => {
 // Functions //
 //-----------//
 
+/**
+ * ### postGenerator
+ * To create the complete post element in the DOM
+ * @param {object} post It's the post will be inserted
+ */
 function postGenerator(post) {
 
     // Create a variable for html markup
@@ -66,8 +69,6 @@ function postGenerator(post) {
     <p>${post.content}</p>
     <img src="${post.urlImg}" alt="${post.urlImg.substring(6, post.urlImg.indexOf('.jpg'))}" class="w-100 object-fit-cover mb-3">
     <div class="tags d-flex">
-        <div class="tag-geo py-1 px-2 text-light rounded-3 me-2">Geo</div>
-        <div class="tag-tech py-1 px-2 text-light rounded-3">Tech</div>
     </div>
     <!-- Section ${post.id} -->
     `
@@ -83,5 +84,33 @@ function postGenerator(post) {
 
     // Append section element to the main one
     mainEl.appendChild(sectionEl);
+
+    // Select tags element
+    const tagsEl = sectionEl.querySelector('.tags');
+
+    // Invoke function to create all tags
+    tagsGenerator(post.tags, tagsEl);
+
+}
+
+/**
+ * ### tagsGenerator
+ * To generate all tags elements
+ * @param {array} tags The array with all tags
+ * @param {object} tagsEl The elemtent container of all tags
+ */
+
+function tagsGenerator(tags, tagsEl) {
+
+    tags.forEach(tag => {
+
+        const tagEl = document.createElement('div');
+
+        tagEl.className = `tag-${tag} py-1 px-2 text-light rounded-3 me-2`;
+
+        tagEl.innerHTML = tag;
+
+        tagsEl.appendChild(tagEl);
+    })
 
 }
