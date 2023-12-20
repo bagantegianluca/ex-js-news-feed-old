@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ex-js-news-feed</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
+
+    <!-- Import FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+        integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Import Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- Import Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1 class="text-center my-3 text-light">News Feed</h1>
+        </header>
+        <!-- header -->
+
+        <main>
+
+            <nav class="d-flex justify-content-between bg-light p-3 mb-3">
+                <div class="nav-left">
+                    <span>Filtra per tags:</span>
+                    <select>
+                        <option value="all" selected>Tutti i tags</option>
+                        <option value="geo">Geo</option>
+                        <option value="tech">Tech</option>
+                        <option value="kitchen">Cucina</option>
+                        <option value="trip">Viaggi</option>
+                        <option value="art">Arte</option>
+                    </select>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="checkOnlySaved">
+                    <label class="form-check-label" for="checkOnlySaved">
+                        Solo news salvate
+                    </label>
+                </div>
+            </nav>
+            <!-- nav -->
+
+            <section class="bg-light p-3 mb-3">
+                <div class="title d-flex justify-content-between">
+                    <div class="section-left">
+                        <h2>Scoperta una nuova specie di papera di gomma</h2>
+                        <h5>pubblicato da Diana Rossi</h5>
+                        <h6>in data 15/01/23</h6>
+                    </div>
+
+                    <i class="fa-regular fa-bookmark"></i>
+                </div>
+
+                <span>Un breve articolo sulla recente scoperta di una specie di papera di gomma mai vista prima.</span>
+
+                <img src="./img/rubber-duck.jpg" alt="rubber-duck" class="w-100 object-fit-cover mb-3">
+
+                <div class="tags d-flex">
+                    <div class="tag-geo py-1 px-2 text-light rounded-3 me-2">Geo</div>
+                    <div class="tag-tech py-1 px-2 text-light rounded-3">Tech</div>
+                </div>
+
+            </section>
+
+        </main>
+        <!-- main -->
+
+    </div>
+    <!-- container -->
+
+    <!-- Import Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+
+    <!-- Import Custom JS -->
+    <script src="./js/main.js"></script>
+</body>
+
+</html>
