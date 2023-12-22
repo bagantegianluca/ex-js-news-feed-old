@@ -46,6 +46,9 @@ const uniqueTagsSet = [...new Set(posts.flatMap(post => post.tags.map(tag => tag
 // Add 'all' option at the beginning of the array
 uniqueTagsSet.unshift('all');
 
+// Add empty tag to test the empty tag case
+uniqueTagsSet.push('test-no-post');
+
 // Select the select element
 const selectEl = document.querySelector('select');
 
@@ -74,10 +77,22 @@ selectEl.addEventListener('change', function () {
     // Filter posts on user selection (check all tags in lowerCase)
     const postsFiltered = this.value === 'all' ? posts : posts.filter(post => post.tags.map(tag => tag.toLowerCase()).includes(this.value));
 
+
     // Generate filtered posts
-    postsFiltered.forEach(post => {
-        postGenerator(post);
-    })
+    if (postsFiltered.length !== 0) {
+
+        postsFiltered.forEach(post => {
+            postGenerator(post);
+        })
+
+    } else {
+
+        // If there are no post insert an element to display a message to user
+        const messageEl = document.createElement('h2');
+        messageEl.innerHTML = 'Nessun post presente';
+        messageEl.style.color = 'white';
+        mainEl.appendChild(messageEl);
+    }
 
 })
 
