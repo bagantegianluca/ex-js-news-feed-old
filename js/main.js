@@ -69,6 +69,7 @@ uniqueTagsSet.forEach(tag => {
 
 })
 
+// Create eventListener to recalculate filtered posts to load
 selectEl.addEventListener('change', function () {
 
     // Empty the main element
@@ -103,6 +104,9 @@ selectEl.addEventListener('change', function () {
 // Select the main element
 const mainEl = document.querySelector('main');
 
+// Create variable to set favourite posts
+let favouritePosts = [];
+
 // Generate posts
 posts.forEach(post => {
     postGenerator(post);
@@ -127,7 +131,7 @@ function postGenerator(post) {
             <h5>${post.author}</h5>
             <h6>in data ${post.published.substring(8, 10)}/${post.published.substring(5, 7)}/${post.published.substring(0, 4)}</h6>
         </div>
-        <i class="fa-regular fa-bookmark"></i>
+        ${!favouritePosts.includes(post.id) ? `<i class="fa-regular fa-bookmark" data-postid="${post.id}"></i>` : `<i class="fa-solid fa-bookmark" data-postid="${post.id}"></i>`}
     </div>
     <p>${post.content}</p>
     <img src="${post.urlImg}" alt="${post.urlImg.substring(6, post.urlImg.indexOf('.jpg'))}" class="w-100 object-fit-cover mb-3">
@@ -147,8 +151,22 @@ function postGenerator(post) {
     // Append section element to the main one
     mainEl.appendChild(sectionEl);
 
+    // Comment markup to add
     const commentMarkup = `<!-- Section ${post.id} -->`;
+
+    // Add comment at the end of sectionEl
     sectionEl.insertAdjacentHTML('afterend', commentMarkup);
+
+    // Select i element
+    const iEl = sectionEl.querySelector('i');
+
+    // Add an eventListener to change icon class and add/remove the post id from favouritePosts array
+    iEl.addEventListener('click', function () {
+
+        toggleFavouritePosts(favouritePosts, post.id);
+
+        this.classList.contains('fa-regular') ? this.className = 'fa-solid fa-bookmark' : this.className = 'fa-regular fa-bookmark';
+    })
 
     // Select tags element
     const tagsEl = sectionEl.querySelector('.tags');
@@ -161,13 +179,12 @@ function postGenerator(post) {
 /**
  * ### tagsGenerator
  * To generate all tags elements
- * @param {array} tags The array with all tags
- * @param {object} tagsEl The elemtent container of all tags
+ * @param {array} arr The array with all tags
+ * @param {object} tagsEl The element container of all tags
  */
+function tagsGenerator(arr, domEl) {
 
-function tagsGenerator(tags, tagsEl) {
-
-    tags.forEach(tag => {
+    arr.forEach(tag => {
 
         const tagEl = document.createElement('div');
 
@@ -175,9 +192,25 @@ function tagsGenerator(tags, tagsEl) {
 
         tagEl.innerHTML = tag.toLowerCase();
 
-        tagsEl.appendChild(tagEl);
+        domEl.appendChild(tagEl);
     })
 
+}
+
+/**
+ * ### toggleFavouritePosts
+ * Add or remove an element from the array checking if present or not
+ * @param {array} arr The array where add or remove the id
+ * @param {number} id The id has to be added or removed from the array
+ */
+function toggleFavouritePosts(arr, id) {
+
+    const index = arr.indexOf(id);
+    if (index > -1) { // only splice array when item is found
+        arr.splice(index, 1); // 2nd parameter means remove one item only
+    } else {
+        arr.push(id);
+    }
 }
 
 //#endregion ---------------------------------------------------------------------
