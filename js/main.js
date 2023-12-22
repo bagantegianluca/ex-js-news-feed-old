@@ -4,7 +4,7 @@ const posts = [
         id: 1,
         title: 'Scoperta di una nuova specie di papera di gomma',
         content: 'Un breve articolo sulla recente scoperta di una specie di papera di gomma mai vista prima.',
-        tags: ['geo', 'tech'],
+        tags: ['geo', 'tech', 'PROVA'],
         author: 'Diana Rossi',
         published: '2023-02-11',
         urlImg: './img/rubber-duck.jpg'
@@ -38,8 +38,10 @@ const posts = [
     }
 ];
 
-// Create an array with all distinct tags
-const uniqueTagsSet = [...new Set(posts.flatMap(post => post.tags))];
+//#region HEADER -----------------------------------------------------------------
+
+// Create an array with all distinct tags in lowerCase
+const uniqueTagsSet = [...new Set(posts.flatMap(post => post.tags.map(tag => tag.toLowerCase())))];
 
 // Add 'all' option at the beginning of the array
 uniqueTagsSet.unshift('all');
@@ -64,7 +66,24 @@ uniqueTagsSet.forEach(tag => {
 
 })
 
-//optionEl.value = `${uniqueTagsSet[]}`;
+selectEl.addEventListener('change', function () {
+
+    // Empty the main element
+    mainEl.innerHTML = '';
+
+    // Filter posts on user selection (check all tags in lowerCase)
+    const postsFiltered = this.value === 'all' ? posts : posts.filter(post => post.tags.map(tag => tag.toLowerCase()).includes(this.value));
+
+    // Generate filtered posts
+    postsFiltered.forEach(post => {
+        postGenerator(post);
+    })
+
+})
+
+//#endregion ---------------------------------------------------------------------
+
+//#region MAIN -------------------------------------------------------------------
 
 // Select the main element
 const mainEl = document.querySelector('main');
@@ -74,9 +93,9 @@ posts.forEach(post => {
     postGenerator(post);
 })
 
-//-----------//
-// Functions //
-//-----------//
+//#endregion ---------------------------------------------------------------------
+
+//#region FUNCTIONS --------------------------------------------------------------
 
 /**
  * ### postGenerator
@@ -137,11 +156,13 @@ function tagsGenerator(tags, tagsEl) {
 
         const tagEl = document.createElement('div');
 
-        tagEl.className = `tag-${tag} py-1 px-2 text-light rounded-3 me-2`;
+        tagEl.className = `tag-${tag.toLowerCase()} py-1 px-2 text-light rounded-3 me-2`;
 
-        tagEl.innerHTML = tag;
+        tagEl.innerHTML = tag.toLowerCase();
 
         tagsEl.appendChild(tagEl);
     })
 
 }
+
+//#endregion ---------------------------------------------------------------------
