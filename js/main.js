@@ -31,16 +31,45 @@ const posts = [
         id: 4,
         title: 'Arte moderna: oltre i confini convenzionali',
         content: "Un'analisi delle tendenze e delle sfide nell'arte contemporanea, con interviste a artisti emergenti.",
-        tags: ['arte', 'tech'],
+        tags: ['arte', 'tech', 'prova'],
         author: 'Gabriele Neri',
         published: '2023-05-29',
         urlImg: './img/modern-art.jpg'
     }
 ];
 
+// Create an array with all distinct tags
+const uniqueTagsSet = [...new Set(posts.flatMap(post => post.tags))];
+
+// Add 'all' option at the beginning of the array
+uniqueTagsSet.unshift('all');
+
+// Select the select element
+const selectEl = document.querySelector('select');
+
+// Create the dynamic select options
+uniqueTagsSet.forEach(tag => {
+
+    // Create option element
+    const optionEl = document.createElement('option');
+
+    // Assign LowerCase tag to option value
+    optionEl.value = tag.toLowerCase();
+
+    // Teg with first lettere in UpperCase
+    optionEl.innerHTML = tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase();
+
+    // Append option element to the select one
+    selectEl.appendChild(optionEl);
+
+})
+
+//optionEl.value = `${uniqueTagsSet[]}`;
+
 // Select the main element
 const mainEl = document.querySelector('main');
 
+// Generate posts
 posts.forEach(post => {
     postGenerator(post);
 })
@@ -70,7 +99,6 @@ function postGenerator(post) {
     <img src="${post.urlImg}" alt="${post.urlImg.substring(6, post.urlImg.indexOf('.jpg'))}" class="w-100 object-fit-cover mb-3">
     <div class="tags d-flex">
     </div>
-    <!-- Section ${post.id} -->
     `
 
     // Create the new section element
@@ -84,6 +112,9 @@ function postGenerator(post) {
 
     // Append section element to the main one
     mainEl.appendChild(sectionEl);
+
+    const commentMarkup = `<!-- Section ${post.id} -->`;
+    sectionEl.insertAdjacentHTML('afterend', commentMarkup);
 
     // Select tags element
     const tagsEl = sectionEl.querySelector('.tags');
