@@ -19,8 +19,9 @@ body {
     background: var(--primary);
 }
 
-i {
+.fa-bookmark:before {
     font-size: 2rem;
+    cursor: pointer;
 }
 
 .tag-geo {

@@ -52,6 +52,9 @@ uniqueTagsSet.push('test-no-post');
 // Select the select element
 const selectEl = document.querySelector('select');
 
+// Select the checkbox element
+const checkBoxEl = document.getElementById('checkOnlySaved');
+
 // Create the dynamic select options
 uniqueTagsSet.forEach(tag => {
 
@@ -69,15 +72,24 @@ uniqueTagsSet.forEach(tag => {
 
 })
 
+let postsFiltered = [];
+
 // Create eventListener to recalculate filtered posts to load
 selectEl.addEventListener('change', function () {
 
     // Empty the main element
     mainEl.innerHTML = '';
 
-    // Filter posts on user selection (check all tags in lowerCase)
-    const postsFiltered = this.value === 'all' ? posts : posts.filter(post => post.tags.map(tag => tag.toLowerCase()).includes(this.value));
+    // Filter posts on user selection (check all tags in lowerCase) related to checkbox status
+    if (checkBoxEl.checked) {
 
+        postsFiltered = this.value === 'all' ? posts.filter(post => favouritePosts.includes(post.id)) : posts.filter(post => post.tags.map(tag => tag.toLowerCase()).includes(this.value)).filter(post => favouritePosts.includes(post.id));
+
+    } else {
+
+        postsFiltered = this.value === 'all' ? posts : posts.filter(post => post.tags.map(tag => tag.toLowerCase()).includes(this.value));
+
+    }
 
     // Generate filtered posts
     if (postsFiltered.length !== 0) {
@@ -95,6 +107,27 @@ selectEl.addEventListener('change', function () {
         mainEl.appendChild(messageEl);
     }
 
+})
+
+// Add checkbox eventListener
+checkBoxEl.addEventListener('change', function () {
+    if (this.checked) {
+
+        postsFiltered = selectEl.value === 'all' ? posts.filter(post => favouritePosts.includes(post.id)) : posts.filter(post => post.tags.map(tag => tag.toLowerCase()).includes(selectEl.value)).filter(post => favouritePosts.includes(post.id));
+
+    } else {
+
+        postsFiltered = selectEl.value === 'all' ? posts : posts.filter(post => post.tags.map(tag => tag.toLowerCase()).includes(selectEl.value));
+
+    }
+
+    // Empty the main element
+    mainEl.innerHTML = '';
+
+    // Generate filtered posts
+    postsFiltered.forEach(post => {
+        postGenerator(post);
+    })
 })
 
 //#endregion ---------------------------------------------------------------------
