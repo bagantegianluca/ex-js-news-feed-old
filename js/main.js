@@ -55,6 +55,11 @@ const selectEl = document.querySelector('select');
 // Select the checkbox element
 const checkBoxEl = document.getElementById('checkOnlySaved');
 
+// If there are no post create an element to display a message to user
+const messageEl = document.createElement('h2');
+messageEl.innerHTML = 'Nessun post presente';
+messageEl.style.color = 'white';
+
 // Create the dynamic select options
 uniqueTagsSet.forEach(tag => {
 
@@ -77,9 +82,6 @@ let postsFiltered = [];
 // Create eventListener to recalculate filtered posts to load
 selectEl.addEventListener('change', function () {
 
-    // Empty the main element
-    mainEl.innerHTML = '';
-
     // Filter posts on user selection (check all tags in lowerCase) related to checkbox status
     if (checkBoxEl.checked) {
 
@@ -91,6 +93,9 @@ selectEl.addEventListener('change', function () {
 
     }
 
+    // Empty the main element
+    mainEl.innerHTML = '';
+
     // Generate filtered posts
     if (postsFiltered.length !== 0) {
 
@@ -100,10 +105,6 @@ selectEl.addEventListener('change', function () {
 
     } else {
 
-        // If there are no post insert an element to display a message to user
-        const messageEl = document.createElement('h2');
-        messageEl.innerHTML = 'Nessun post presente';
-        messageEl.style.color = 'white';
         mainEl.appendChild(messageEl);
     }
 
@@ -125,9 +126,16 @@ checkBoxEl.addEventListener('change', function () {
     mainEl.innerHTML = '';
 
     // Generate filtered posts
-    postsFiltered.forEach(post => {
-        postGenerator(post);
-    })
+    if (postsFiltered.length !== 0) {
+
+        postsFiltered.forEach(post => {
+            postGenerator(post);
+        })
+
+    } else {
+
+        mainEl.appendChild(messageEl);
+    }
 })
 
 //#endregion ---------------------------------------------------------------------
